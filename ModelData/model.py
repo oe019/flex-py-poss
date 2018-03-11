@@ -39,7 +39,7 @@ class Point:
     """
     Represents a single point in multi-sensor time series graph
     """
-    def __init__(self,sensor=None,value=None,time=None):
+    def __init__(self,sensor=Sensor(),value=None,time=None):
         if(type(sensor) is not Sensor):
             raise ('type mismatch exception, sensor must be a sensor object')
         self.__sensor = sensor
@@ -67,14 +67,64 @@ class Point:
         self.__time = value
 
 
+
 class DesingLoadCase:
     """
     Represents a single INT file which composes time series data of different sensors
     """
-    def __init__(self,sensorIdList,timeStep,graph):
-        self.SensorIds = sensorIdList
-        self.TimeStep = timeStep
-        self.Graph = graph;
+    def __init__(self,sensorIdList=list(),timeStep=None,graph=list()):
+        if(type(sensorIdList) is not list):
+            raise ('type mismatch exception, sensorIDs must be a list object')
+        if (type(graph) is not list):
+            raise ('type mismatch exception, graph must be a list object')
+        self.__sensorIds = sensorIdList
+        self.__timeStep = timeStep
+        self.__graph = graph
+    @property
+    def sensorIds(self):
+        return self.__sensorIds
+    @sensorIds.setter
+    def sensorIds(self,values):
+        if type(values) is not list:
+            raise ('type mismatch exception, sensorIDs must be a list object')
+        self.__sensorIds = values
+    @property
+    def timeStep(self):
+        return self.__timeStep
+    @timeStep.setter
+    def timeStep(self,val):
+        self.__timeStep = val
+    @property
+    def graph(self):
+        return self.__graph
+    @graph.setter
+    def graph(self,value):
+        if(type(value)is not list):
+            raise ('type mismatch exception, graph must be a list object')
+        if(type(value[0]) is not Point):
+            raise ('type mismatch exception, graph elements must be a Point object')
+        self.__graph = value
+
+
+
+s1 = Sensor("Tower",'KN',0.3334)
+s2 = Sensor('Yaw','N/cm2',0.22333)
+
+dlc = DesingLoadCase()
+pt1 = Point(s1,23,3)
+pt2 = Point(s2,13,5)
+pt3 = Point(s1,54,2)
+ls = [pt1,pt2,pt3]
+
+dlc.graph.append(pt1)
+dlc.graph.append(pt2)
+dlc.graph.append(pt3)
+
+print(dlc.graph[0].sensor.unit)
+
+
+
+
 
 
 
