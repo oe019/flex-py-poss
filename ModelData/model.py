@@ -3,33 +3,68 @@ from Abstraction.abstraction import testFunction;
 
 ## todo : sergerate properties into separate interfaces
 
-class PointTypes(Enum):
-    """
-    Represents the point types in time series graph
-    """
-    Max = 1
-    Min = 2
-    Normal = 3
 
 class Sensor:
     """
     Represensts a single sensor object
     """
-    def __init__(self, name,unit,factor):
-        self.Name = name
-        self.Unit = unit
-        self.factor = factor
+    def __init__(self, name=None,unit=None,factor=None):
+        self.__name = name
+        self.__unit = unit
+        self.__factor = factor
+    @property
+    def name(self):
+        return self.__name
+    @name.setter
+    def name(self,name):
+        self.__name = name
+    @property
+    def unit(self):
+        return self.__unit
+    @unit.setter
+    def unit (self,value):
+        self.__unit = value
+    @property
+    def factor(self):
+        return self.__factor
+    @factor.setter
+    def factor (self,value):
+        self.__factor = value
+
+
+
 
 
 class Point:
     """
-    Represents a single point in multi sensor time series graph
+    Represents a single point in multi-sensor time series graph
     """
-    def __init__(self,sensor,value,time,pointtype):
-        self.Sensor = sensor
-        self.Value = value
-        self.Time = time
-        self.PointType = pointtype
+    def __init__(self,sensor=None,value=None,time=None):
+        if(type(sensor) is not Sensor):
+            raise ('type mismatch exception, sensor must be a sensor object')
+        self.__sensor = sensor
+        self.__value = value
+        self.__time = time
+    @property
+    def sensor(self):
+        return self.__sensor
+    @sensor.setter
+    def sensor(self,value):
+        if (type(value) is not Sensor):
+            raise ('type mismatch exception, sensor must be a sensor object')
+        self.__sensor = value
+    @property
+    def value(self):
+        return self.__value
+    @value.setter
+    def value(self,value):
+        self.__value = value
+    @property
+    def time (self):
+        return self.__time
+    @time.setter
+    def time(self,value):
+        self.__time = value
 
 
 class DesingLoadCase:
@@ -42,15 +77,11 @@ class DesingLoadCase:
         self.Graph = graph;
 
 
-###testing 1 - 2
 
-GEN_s = Sensor(
-    "XPressure",
-    "N/cm2",
-    0.323435)
 
-maxPoint = Point(GEN_s,
-                 234.213123,
-                 2.34657,
-                 PointTypes.Max)
-print(maxPoint.Sensor.Name+ "(" +maxPoint.Sensor.Unit+")")
+
+
+
+
+
+
