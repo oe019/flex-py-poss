@@ -1,17 +1,13 @@
-from enum import Enum
-from Abstraction.abstraction import testFunction;
-
-## todo : sergerate properties into separate interfaces
-
 
 class Sensor:
     """
     Represensts a single sensor object
     """
-    def __init__(self, name=None,unit=None,factor=None):
+    def __init__(self, name=None,unit=None,factor=None,id=None):
         self.__name = name
         self.__unit = unit
         self.__factor = factor
+        self.__Id = id
     @property
     def name(self):
         return self.__name
@@ -30,11 +26,12 @@ class Sensor:
     @factor.setter
     def factor (self,value):
         self.__factor = value
-
-
-
-
-
+    @property
+    def Id(self):
+        return self.__Id
+    @Id.setter
+    def Id(self,value):
+        self.__Id = value
 class Point:
     """
     Represents a single point in multi-sensor time series graph
@@ -65,9 +62,6 @@ class Point:
     @time.setter
     def time(self,value):
         self.__time = value
-
-
-
 class DesingLoadCase:
     """
     Represents a single INT file which composes time series data of different sensors
@@ -105,23 +99,7 @@ class DesingLoadCase:
             raise ('type mismatch exception, graph elements must be a Point object')
         self.__graph = value
 
-
-
-s1 = Sensor("Tower",'KN',0.3334)
-s2 = Sensor('Yaw','N/cm2',0.22333)
-
-dlc = DesingLoadCase()
-pt1 = Point(s1,23,3)
-pt2 = Point(s2,13,5)
-pt3 = Point(s1,54,2)
-ls = [pt1,pt2,pt3]
-
-dlc.graph.append(pt1)
-dlc.graph.append(pt2)
-dlc.graph.append(pt3)
-
-print(dlc.graph[0].sensor.unit)
-
+#######Utilisation objects
 
 
 
