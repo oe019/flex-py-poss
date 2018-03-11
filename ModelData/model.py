@@ -1,4 +1,9 @@
+from enum import Enum
 
+class PointTypes(Enum):
+    Max = 1
+    Min = 2
+    NA = 3
 class Sensor:
     """
     Represensts a single sensor object
@@ -98,8 +103,45 @@ class DesingLoadCase:
         if(type(value[0]) is not Point):
             raise ('type mismatch exception, graph elements must be a Point object')
         self.__graph = value
+class RelativeExtremum:
+    """
+    Represents the maximum or minimum of a sensor with the simultaneous values of other sensors in a multiple timeseries graph
+    """
+    def __init__(self,pointtype = PointTypes.Max, point=Point(), coValues=list):
+        if(type(pointtype) is not PointTypes):
+            raise ('type mismatch exception, point type must be a PointTypes object')
+        if(type(point) is not Point):
+            raise ('type mismatch exception, point data must be a Point object')
+        if(type(coValues) is not list):
+            raise ('type mismatch exception, coValues must be a Point list')
+        self.__pointType = pointtype
+        self.__point = point
+        self.__coVals = coValues
+    @property
+    def pointType(self):
+        return self.__pointType
+    @pointType.setter
+    def pointType(self,value):
+        if(type(value) is not PointTypes):
+            raise ('type mismatch exception, point type must be a PointTypes object')
+        self.__pointType = value
+    @property
+    def point(self)-> Point:
+        return self.__point
+    @point.setter
+    def point(self,value):
+        if (type(value) is not Point):
+            raise ('type mismatch exception, point data must be a Point object')
+        self.__point = value
+    @property
+    def coVals(self):
+        return self.__coVals
+    @coVals.setter
+    def coVals(self,value):
+        if (type(value) is not list):
+            raise ('type mismatch exception, coValues must be a Point list')
+        self.__coVals = value
 
-#######Utilisation objects
 
 
 
